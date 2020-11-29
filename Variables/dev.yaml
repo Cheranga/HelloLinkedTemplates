@@ -2,7 +2,7 @@ variables:
 - name: environmentName
   value: dev
 - name: rgName
-  value: cctestlink$(environmentName)
+  value: rg-cctestlink-$(environmentName)
 - name: rgLocation
   value: Australia Southeast  
 - name: storageAccountName
