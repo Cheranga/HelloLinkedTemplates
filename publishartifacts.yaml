@@ -3,4 +3,4 @@ steps:
   displayName: 'Publish Artifact'
   inputs:
     artifactName: 'drop'
-    PathtoPublish: Deploy/Resources
+    PathtoPublish: Resources
