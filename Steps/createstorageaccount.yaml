@@ -11,7 +11,7 @@ steps:
       csmFile: '$(Pipeline.Workspace)/drop/StorageAccount/template.json'
       csmParametersFile: '$(Pipeline.Workspace)/drop/StorageAccount/template.parameters.json'
       overrideParameters: |
-        -storageAccountName st$(storageAccountName)$(environmentName) 
-        -storageAccountType Standard_GRS 
-        -storageLocation $(rgLocation) 
+        -storageAccountName "st$(storageAccountName)$(environmentName)" 
+        -storageAccountType "Standard_GRS" 
+        -storageLocation "$(rgLocation)" 
       deploymentMode: 'Incremental'     
