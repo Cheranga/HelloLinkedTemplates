@@ -2,28 +2,65 @@
     "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
     "contentVersion": "1.0.0.1",
     "parameters": {
-      "rgName": {
-        "type": "string",
-        "metadata": {
-          "description": "Name of the Resource Group to create"
+        "rgName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the Resource Group to create"
+            }
+        },
+        "rgLocation": {
+            "type": "string",
+            "defaultValue": "Australia Southeast",
+            "metadata": {
+                "description": "Location for the Resource Group"
+            }
+        },
+        "storageAccountName": {
+            "type": "string"
+        },
+        "storageAccountType": {
+            "type": "string"
+        },
+        "storageLocation": {
+            "type": "string"
         }
-      },
-      "rgLocation": {
-        "type": "string",
-        "defaultValue": "Australia Southeast",
-        "metadata": {
-          "description": "Location for the Resource Group"
-        }
-      }      
-    },    
+    },
+    "variables": {
+        "templateBaseUrl": "[deployment().properties.templateLink.uri]",
+        "templateQueryString": "[concat('?', last(split(deployment().properties.templateLink.uri, '?')))]"
+    },
     "resources": [
-      {
-        "type": "Microsoft.Resources/resourceGroups",
-        "apiVersion": "2018-05-01",
-        "location": "[parameters('rgLocation')]",
-        "name": "[parameters('rgName')]",      
-        "properties": {}
-      }
+        {
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2018-05-01",
+            "location": "[parameters('rgLocation')]",
+            "name": "[parameters('rgName')]",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2018-05-01",
+            "name": "Deploy-storage-account",
+            //   "condition": "[or(equals(parameters('environmentName'), 'prod'), equals(parameters('environmentName'), 'pt'), equals(parameters('environmentName'), 'dr'))]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(uri(variables('templateBaseUrl'), 'StorageAccount/template.json'), variables('templateQueryString'))]",
+                    "contentVersion": "1.0.0.1"
+                },
+                "parameters": {
+                    "storageAccountName": {
+                        "value": "[parameters('storageAccountName')]"
+                    },
+                    "storageAccountType": {
+                        "value": "[parameters('storageAccountType')]"
+                    },
+                    "storageLocation": {
+                        "value": "[parameters('storageLocation')]"
+                    }
+                }
+            }
+        }
     ],
     "outputs": {}
-  }
+}

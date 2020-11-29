@@ -9,6 +9,9 @@ steps:
       csmFile: '$(Pipeline.Workspace)/drop/ResourceGroup/template.json'
       csmParametersFile: '$(Pipeline.Workspace)/drop/ResourceGroup/template.parameters.json'
       overrideParameters: |
-        -rgName "$(rgName)"  
+        -rgName "$(rgName)" 
         -rgLocation "$(rgLocation)" 
+        -storageAccountName "st$(storageAccountName)$(environmentName)" 
+        -storageAccountType "Standard_GRS" 
+        -storageLocation "$(rgLocation)" 
       

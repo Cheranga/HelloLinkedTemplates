@@ -1,4 +1,4 @@
 steps:
 
 - template: 'Steps/createresourcegroup.yaml'
-- template: 'Steps/createstorageaccount.yaml'
+# - template: 'Steps/createstorageaccount.yaml'

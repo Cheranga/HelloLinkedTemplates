@@ -7,6 +7,15 @@
         },
         "rgLocation": {            
             "value": "TBD"
+        },
+        "storageAccountName":{
+            "value": "TBD"
+        },
+        "storageAccountType":{
+            "value": "TBD"
+        },
+        "storageLocation":{
+            "value": "TBD"
         }
     }
 }
