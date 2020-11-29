@@ -1,0 +1,17 @@
+steps:
+  - task: AzureResourceManagerTemplateDeployment@3    
+    displayName: 'Create storage account'
+    inputs:
+      deploymentScope: 'Resource Group'
+      azureResourceManagerConnection: '$(azureSubscription)'      
+      action: 'Create Or Update Resource Group'
+      resourceGroupName: '$(rgName)'
+      location: '$(rgLocation)'
+      templateLocation: 'Linked artifact'              
+      csmFile: '$(Pipeline.Workspace)/drop/StorageAccount/template.json'
+      csmParametersFile: '$(Pipeline.Workspace)/drop/StorageAccount/template.parameters.json'
+      overrideParameters: |
+        -storageAccountName 'st$(storageAccountName)$(environmentName)' 
+        -storageAccountType Standard_GRS
+        -storageLocation '$(rgLocation)' 
+      deploymentMode: 'Incremental'     

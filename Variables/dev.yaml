@@ -1,0 +1,9 @@
+variables:
+- name: environmentName
+  value: dev
+- name: rgName
+  value: cctestlink$(environmentName)
+- name: rgLocation
+  value: Australia Southeast  
+- name: storageAccountName
+  value: cctestlink
